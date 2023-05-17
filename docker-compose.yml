@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  backend:
+    restart: unless-stopped
+    image: jpanosso/swift-feed-backend:latest
+    container_name: backend
+    ports:
+      - "3000:3000"
+      - "2121:2121"
+      - "1025-1050:1025-1050"
+    depends_on:
+      - mongo
+    env_file:
+      - backend.env
+  frontend:
+    image: jpanosso/swift-feed-frontend:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./certs:/etc/nginx/ssl
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./frontend.env:/app/.env
+  mongo:
+    image: "mongo:latest"
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - "mongo_data:/data/db"
+volumes:
+  mongo_data:
