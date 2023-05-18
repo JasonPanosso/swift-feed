@@ -20,9 +20,8 @@ jobs:
         env:
           BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
         run: |
-          docker build \
-          --build-arg VITE_API_BASE_URL=$BACKEND_API_URL \
-          -t jpanosso/swift-feed-frontend:latest .
+          echo $BACKEND_API_URL > .env
+          docker build -t jpanosso/swift-feed-frontend:latest .
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker push jpanosso/swift-feed-frontend:latest
 
