@@ -21,6 +21,7 @@ jobs:
           BACKEND_API_URL: ${{ secrets.BACKEND_API_URL }}
         run: |
           echo "VITE_API_BASE_URL=$BACKEND_API_URL" > .env
+          cat .env
           docker build -t jpanosso/swift-feed-frontend:latest .
           docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
           docker push jpanosso/swift-feed-frontend:latest
@@ -43,4 +44,5 @@ jobs:
             cd ${{ secrets.VPS_APP_PATH }}
             git pull
             docker-compose -f docker-compose.yml down
-            docker-compose -f docker-compose.yml up -d
+            docker-compose pull
+            docker-compose -f docker-compose.yml up --build -d
