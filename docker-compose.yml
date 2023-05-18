@@ -13,6 +13,8 @@ services:
       - mongo
     env_file:
       - backend.env
+    volumes:
+      - ./certs:/etc/ssl/backendcerts
   frontend:
     image: jpanosso/swift-feed-frontend:latest
     ports:
