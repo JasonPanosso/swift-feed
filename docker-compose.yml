@@ -21,7 +21,6 @@ services:
     volumes:
       - ./certs:/etc/nginx/ssl
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
-      - ./frontend.env:/app/.env
   mongo:
     image: "mongo:latest"
     container_name: mongo
