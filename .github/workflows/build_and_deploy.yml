@@ -38,8 +38,5 @@ jobs:
           key: ${{ secrets.VPS_PRIVATE_KEY }}
           port: ${{ secrets.VPS_PORT }}
           script: |
-            cd ${{ secrets.VPS_APP_PATH }}
-            git pull
-            docker-compose -f docker-compose.yml down
-            docker-compose pull
-            docker-compose -f docker-compose.yml up --build -d
+            cd ~
+            ./swarmdeploy.sh
